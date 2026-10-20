@@ -12,6 +12,19 @@ that was verified value-by-value against the LuxPower app.
 > check the values against the app on yours. Issues and reports from other models
 > are welcome.
 
+## Preview
+
+A dashboard built on the integration's sensors — a normal late afternoon on the
+left, and a grid outage with a low battery and an inverter fault on the right.
+The dashboard itself is not part of this repo; the integration just provides the
+entities.
+
+<p align="center">
+  <img src="images/dashboard-normal.png" alt="Normal — late afternoon: solar, battery, grid, power chart, solar per day, daily totals" width="45%">
+  &nbsp;&nbsp;
+  <img src="images/dashboard-grid-down.png" alt="Grid down, battery at 22%, inverter fault 0x200 and radiator at 88 °C" width="45%">
+</p>
+
 ## Read-only, on purpose
 
 Only Modbus read functions are implemented — `0x03` (read holding) and `0x04`
@@ -57,24 +70,9 @@ detection fails, that is the field to check.
 If you don't have the sticker, leave the dongle serial blank and detection falls
 back to listening for the dongle to announce itself. Treat that as a coin flip:
 the dongle volunteers heartbeats on its own schedule and in testing once said
-nothing at all for 30 seconds. The reliable fallback is the bundled probe:
-
-```bash
-python3 lux_read.py --listen 90
-```
+nothing at all for 30 seconds. If it fails, retry, or find the sticker.
 
 Polling interval is configurable per entry (**Configure**), default 30 s.
-
-## The probe script
-
-`lux_read.py` is a standalone, dependency-free, read-only probe — useful for
-getting the serials, for sanity-checking the register map against your own app
-before trusting the integration, and for debugging:
-
-```bash
-python3 lux_read.py --listen 90                      # learn the serials
-python3 lux_read.py --dongle BA12345678 --inverter 1234567890 --raw
-```
 
 ## How it talks to the dongle
 
