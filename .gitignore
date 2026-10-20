@@ -1,0 +1,28 @@
+# Claude Code local settings. These hold machine-local permission rules and have
+# contained a Home Assistant long-lived access token, so they must never be
+# committed.
+.claude/
+
+# Personal Home Assistant dashboard and helpers. Kept out of this repo on
+# purpose: they carry household entity names, cameras and alarm entities.
+dashboard.yaml
+dashboard.yaml.bak
+dashboard_solar_section.yaml
+helpers.yaml
+
+# Secrets
+*.token
+.ha_token
+secrets.yaml
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*env/
+
+# macOS
+.DS_Store

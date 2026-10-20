@@ -1,0 +1,54 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "LuxPower inverter",
+        "description": "Two serials are needed. If you have the dongle serial from its sticker, detection can read the inverter serial off the inverter for you.",
+        "menu_options": {
+          "manual": "Enter both serials myself",
+          "detect": "Detect the inverter serial"
+        }
+      },
+      "manual": {
+        "title": "LuxPower inverter",
+        "description": "Both serials are required. The dongle serial is on its sticker — 10 characters, usually starting BA. For both, run `python3 lux_read.py --listen 90` against the dongle. Setup is confirmed by reading live registers, so the inverter must be powered up.",
+        "data": {
+          "host": "Dongle IP address",
+          "port": "Port",
+          "dongle_serial": "Dongle serial",
+          "inverter_serial": "Inverter serial"
+        }
+      },
+      "detect": {
+        "title": "Detect the inverter serial",
+        "description": "Give the dongle serial from its sticker (10 characters, usually starting BA) and the inverter serial is read straight off the inverter. Leave it blank and detection will first listen up to {seconds} seconds for the dongle to announce itself, which is unreliable — it sometimes says nothing at all. Whatever is found is filled in on the next screen.",
+        "data": {
+          "host": "Dongle IP address",
+          "port": "Port",
+          "dongle_serial": "Dongle serial (optional, from the sticker)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the dongle. Check the IP and port, and make sure nothing else is connected to it — the dongle only serves one client at a time.",
+      "no_serials": "Could not work out the dongle serial by listening, so please enter both serials. The dongle serial is on its sticker, or run `python3 lux_read.py --listen 90` to read both off the dongle's traffic.",
+      "detect_failed": "Found the dongle but could not read the inverter serial. The dongle serial is the one field the dongle checks, so double-check it against the sticker — or enter both serials.",
+      "no_data": "The dongle accepted the connection but returned no registers. Check the dongle serial, and that the inverter itself is powered up.",
+      "unknown": "Unexpected error. Check the Home Assistant log for details."
+    },
+    "abort": {
+      "already_configured": "This inverter is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "LuxPower options",
+        "description": "How often to poll the inverter. Shorter intervals give a livelier dashboard; the inverter updates its registers every few seconds.",
+        "data": {
+          "scan_interval": "Polling interval (seconds)"
+        }
+      }
+    }
+  }
+}
